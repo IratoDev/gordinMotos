@@ -31,7 +31,7 @@ interface NavMobileProps {
 
 export default function Navbar() {
   
-  const [largura, setLargura] = useState(window.innerWidth);
+  const [largura,] = useState(window.innerWidth);
   const [menuAberto, setMenuAberto] = useState(false);
   const [favoritosAberto, setFavoritosAberto] = useState(false);
 

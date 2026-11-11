@@ -1,5 +1,5 @@
 
-import { use, useState, type FormEvent, type ReactNode} from "react";
+import {  useState, type FormEvent, } from "react";
 import { useApp } from "../../context/Context";
 import {
   FaSearch,
@@ -13,17 +13,49 @@ import { CardsDestaque, type MotoType } from "../../components/CardsDestaque/Car
 
 
 
+interface ModeloData {
+  id: string;
+  public_id: string;
+  descricao: string;
+  marca_id: string;
+}
+
+interface MarcaData {
+  id: string;
+  public_id: string;
+  descricao: string;
+  modelos: ModeloData[];
+}
+
+type Option = {
+  public_id: string;
+  descricao: string;
+};
+
+
+
 export default function Vehicles() {
   const [showFilters, setShowFilters] = useState(false);
 
   const { veiculosData, marcasData, coresData } = useApp();
 
-  const [veiculosFiltrados, setVeiculosFiltrados] = useState(veiculosData);
-  const [colorList, setColorList] = useState(coresData);
-  const[marcaList, setMarcaList] = useState(marcasData);
-  const [filtros, setFiltros] = useState({
-    marca: [] ,
-    cor: [] ,
+  const [veiculosFiltrados, ] = useState(veiculosData);
+  const [colorList, ] = useState(coresData);
+  const[marcaList, ] = useState(marcasData);
+  const [filtros, setFiltros] = useState<{
+    marca: string[];
+    cor: string[];
+    carroceria: string[];
+    precoDe: string;
+    precoAte: string;
+    kmDe: string;
+    kmAte: string;
+    marcaBusca: string;
+    modeloBusca: string;
+    ordem: string;
+  }>({
+    marca: [],
+    cor: [],
     carroceria: [],
     precoDe: "",
     precoAte: "",
@@ -35,15 +67,15 @@ export default function Vehicles() {
   });
 
    const marcasOptions = marcaList.map(
-    (marca: any) => marca.descricao
+    (marca: MarcaData) => marca.descricao
   );
 
   const marcaSelected = marcaList.find(
-    (marca: any) => marca.public_id === filtros.marcaBusca
+    (marca: MarcaData) => marca.public_id === filtros.marcaBusca
   );
 
   const modelosMarcaSelected = marcaSelected?.modelos.map(
-    (modelo: any) => modelo.descricao
+    (modelo: ModeloData) => modelo.descricao
   ) ?? [];
 
   const handleChange = (
@@ -78,7 +110,7 @@ export default function Vehicles() {
   const renderOptions = (
     title: string,
     name: "marca" | "cor" | "carroceria",
-    options: any[]
+    options: Option[]
   ) => (
     <div className="border-b border-gray-200 py-5">
       <h3 className="mb-4 text-sm font-bold uppercase text-gray-800">

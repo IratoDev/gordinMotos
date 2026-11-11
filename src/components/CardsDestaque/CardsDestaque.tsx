@@ -10,12 +10,20 @@ export interface MotoImage {
   principal: boolean;
 }
 
+interface MotoMarca {
+  descricao: string;
+}
+
+interface MotoModelo {
+  descricao: string;
+}
+
 export interface MotoType {
   ano_fab: string;
   ano_mo: string;
-  marca: string;
+  marca: MotoMarca;
   nome:string;
-  modelo: string;
+  modelo: MotoModelo;
   versao: string;
   preco: number;
   quilometragem: number;

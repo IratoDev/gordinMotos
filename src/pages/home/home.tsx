@@ -55,7 +55,7 @@ export default function Home(){
     };
   }, []);
 
-  const { veiculosData, marcasData, coresData } = useApp();
+  const { veiculosData, } = useApp();
 
   const motosDestaque = veiculosData.slice(0, largura < 768 ? 5 : 10);
 

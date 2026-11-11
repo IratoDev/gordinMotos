@@ -41,6 +41,7 @@ type CheckboxField = {
   name: string;
   label: string;
   required?: boolean;
+  colSpan?: number
 };
 
 type FormField =
@@ -471,12 +472,13 @@ export default function Financing() {
         type={field.inputType ?? "text"}
         placeholder={field.placeholder ?? ""}
         {...commonProps}
+        handleChange={()=> null}
       />
     );
   }
 
   if (field.type === "select") {
-    return <Select {...commonProps} list={field.options} />;
+    return <Select {...commonProps} list={field.options}  handleChange={()=> null}/>;
   }
 
   if (field.type === "textarea") {

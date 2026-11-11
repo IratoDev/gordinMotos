@@ -7,7 +7,6 @@ import {
   FaPhoneAlt,
   FaMapMarkerAlt,
   FaFacebookF,
-  FaInstagram,
   FaShareAlt,
   FaEnvelope,
   FaRegHeart,

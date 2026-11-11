@@ -177,6 +177,7 @@ export default function Assessment() {
           type={field.inputType ?? "text"}
           placeholder={field.placeholder ?? ""}
           {...commonProps}
+          handleChange={()=> null}
         />
       );
     }
@@ -185,7 +186,8 @@ export default function Assessment() {
       <Select
         {...commonProps}
         list={field.options}
-        defaultOption={field.placeholder ?? "Selecione uma opção"}
+        handleChange={()=> null}
+        //defaultOption={field.placeholder ?? "Selecione uma opção"}
       />
     );
   }

@@ -10,8 +10,14 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
+interface ImagemsTipe {
+
+  url:string
+
+}
+
 interface Props {
-  images: string[];
+  images: ImagemsTipe[];
 }
 
 export function Gallery({ images }: Props) {
