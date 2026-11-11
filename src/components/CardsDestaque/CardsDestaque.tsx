@@ -3,6 +3,7 @@ import { BsSpeedometer2 } from 'react-icons/bs';
 import { TbManualGearboxFilled } from 'react-icons/tb';
 import { PiGasCanFill } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
+import type { VeiculoTipe } from '../../context/Context';
 
 export interface MotoImage {
   id: number;
@@ -10,32 +11,11 @@ export interface MotoImage {
   principal: boolean;
 }
 
-interface MotoMarca {
-  descricao: string;
-}
 
-interface MotoModelo {
-  descricao: string;
-}
 
-export interface MotoType {
-  ano_fab: string;
-  ano_mo: string;
-  marca: MotoMarca;
-  nome:string;
-  modelo: MotoModelo;
-  versao: string;
-  preco: number;
-  quilometragem: number;
-  cambio: string;
-  km:string;
-  combustivel: string;
-  cidade: string;
-  estado: string;
-  imagens: MotoImage[];
-}
 
-export function CardsDestaque({moto}: {moto: MotoType}){
+
+export function CardsDestaque({moto}: {moto: VeiculoTipe}){
 
     const navigate = useNavigate();
 
@@ -61,7 +41,7 @@ export function CardsDestaque({moto}: {moto: MotoType}){
                   
                   <h3 className='text-verde-600 font-bold' style={{fontSize: responsiveSizes.text.subtitle}}>R$ {moto.preco}</h3>
                   
-                  <p className="text-cinza-600" style={{fontSize: responsiveSizes.text.small}}>{moto.cidade}</p>
+                  <p className="text-cinza-600" style={{fontSize: responsiveSizes.text.small}}>arapongas</p>
                 
                 </div>
 

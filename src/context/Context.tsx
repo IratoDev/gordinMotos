@@ -36,7 +36,7 @@ interface Cor {
   hexdecimal: string;
 }
 
-interface Veiculo {
+export interface VeiculoTipe {
   public_id: string;
   nome: string;
   detalhes: string;
@@ -83,7 +83,7 @@ interface MarcaData {
 // ==========================================
 
 interface AppContextData {
-  veiculosData: Veiculo[];
+  veiculosData: VeiculoTipe[];
   coresData: CorData[];
   marcasData: MarcaData[];
 }
@@ -100,7 +100,7 @@ const Context = createContext<AppContextData | null>(null);
 
 export function ContextProvider({ children }: Props) {
 
-  const veiculosData: Veiculo[] = [
+  const veiculosData: VeiculoTipe[] = [
     {
       public_id: "a8f72c91-4d21-4a31-bf85-9c2e7d6a1234",
       nome: "G 310",

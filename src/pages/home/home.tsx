@@ -3,8 +3,7 @@ import SearchMotos from '../../components/SearchMotos/SearchMotos'
 import { useEffect, useState } from 'react';
 
 import { CardsDestaque } from '../../components/CardsDestaque/CardsDestaque';
-import { type MotoType } from '../../components/CardsDestaque/CardsDestaque';
-import { useApp } from '../../context/Context';
+import { useApp, type VeiculoTipe } from '../../context/Context';
 import { FaMotorcycle, FaPhone, FaWhatsapp } from 'react-icons/fa';
 
 
@@ -198,7 +197,7 @@ export default function Home(){
                 flex flex-col justify-between w-full gap-8 border border-blue-500
                 md:flex-row md:flex-wrap md:justify-center
                 '>
-                    {motosDestaque.map((moto:MotoType)=>(
+                    {motosDestaque.map((moto:VeiculoTipe)=>(
                       <CardsDestaque moto={moto}/>
                     ))}
                 </div>

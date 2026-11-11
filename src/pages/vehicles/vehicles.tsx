@@ -1,6 +1,6 @@
 
 import {  useState, type FormEvent, } from "react";
-import { useApp } from "../../context/Context";
+import { useApp, type VeiculoTipe } from "../../context/Context";
 import {
   FaSearch,
   FaFilter,
@@ -9,8 +9,7 @@ import {
 } from "react-icons/fa";
 import { Inpunt } from "../../components/ui/input";
 import { Select } from "../../components/ui/select";
-import { CardsDestaque, type MotoType } from "../../components/CardsDestaque/CardsDestaque";
-
+import { CardsDestaque } from "../../components/CardsDestaque/CardsDestaque";
 
 
 interface ModeloData {
@@ -380,7 +379,7 @@ export default function Vehicles() {
 
               {veiculosFiltrados ? (
                 <>
-                {veiculosFiltrados.map((moto:MotoType)=>(
+                {veiculosFiltrados.map((moto:VeiculoTipe)=>(
                 <CardsDestaque moto={moto}/>
                 ))}
                 </>
