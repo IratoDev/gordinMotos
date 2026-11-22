@@ -5,7 +5,7 @@ export function setupApiClient() {
 
 
   const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:3000",
+    baseURL: import.meta.env.VITE_API_URL,
   });
 
   api.interceptors.request.use((config) => {

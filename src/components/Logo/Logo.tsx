@@ -33,7 +33,7 @@ return (
         
     ):(
         
-        <img alt="Gordin Motos Multimarcas" src={Mobile} className="w-full h-full object-cover object-center border"/>
+        <img alt="Gordin Motos Multimarcas" src={Mobile} className="w-full h-full object-cover object-center"/>
 
     )}
     </button>
