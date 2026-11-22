@@ -1,24 +1,48 @@
 
 import { useLocation, Link } from "react-router-dom";
-import { Gallery } from "../../components/Galerry/Galerry";
+import { Gallery } from "../../components/carousel/Galerry/Galerry";
 
 import {
   FaWhatsapp,
   FaPhoneAlt,
   FaMapMarkerAlt,
-  FaFacebookF,
-  FaShareAlt,
-  FaEnvelope,
   FaRegHeart,
+  FaHeart,
 } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { registrarEvento } from "../../lib/eventos";
+import { ModalFinancing } from "../../components/modal/financiamento/modalFinanciamento";
+import { useApp } from "../../context/Context";
+import { getFavoritos } from "../../hooks/favoritos/favoritosHooks";
+import { CarrosselAvaliacoes } from "../../components/carousel/Avaliação/CarroselAvaliacao";
+import type { Assessment } from "../../context/dataTypes";
 
 export function Info() {
   const location = useLocation();
   const moto = location.state?.moto;
+  const [modalFinancing, setModalFinancing] = useState(false)
+  const [btnFavoritos, setBtnFavoritos] = useState(() =>
+  getFavoritos().includes(moto.public_id)
+  ); 
+
+  const {toggleFavorito, assessment} = useApp()
+
+  useEffect(() => {
+    if (!moto) return;
+
+    registrarEvento({ tipo: 'VISUALIZOU', veiculo_id: moto.public_id });
+  }, [moto?.public_id]);
 
   if (!moto) {
     return <p>Veículo não encontrado.</p>;
   }
+
+  const handelFavoritos = (e: React.MouseEvent) => {
+  e.stopPropagation();
+  toggleFavorito(moto.public_id);
+
+  setBtnFavoritos(prev => !prev);
+  };
 
   const telefone = "43999175256";
 
@@ -32,14 +56,20 @@ export function Info() {
     { label: "Ano Mod.", value: moto.ano_mo },
     { label: "Km", value: moto.km },
     { label: "Combustível", value: moto.combustivel },
-    { label: "Cor", value: moto.cor?.descricao },
+    { label: "Cor", value: moto.cor[0].hexadecimal},
     { label: "Placa", value: moto.placa },
   ];
 
+  const avaliacoesFiltradas = assessment.filter((a: Assessment)=> a.veiculo.public_id === moto.public_id) ?? []
+  console.log("info",moto)
+
+  console.log("info",infoMotos[4])
+
   return (
+    <>
     <main className="relative flex min-h-screen w-full flex-col gap-8 py-8">
 
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl px-4 mt-24">
 
         {/* CABEÇALHO */}
         <header className="
@@ -59,12 +89,7 @@ export function Info() {
             </Link>
           </nav>
 
-          <div className="hidden sm:flex items-center gap-3">
-            <span>Compartilhar</span>
-            <FaWhatsapp className="text-base cursor-pointer" />
-            <FaFacebookF className="text-base cursor-pointer" />
-            <FaShareAlt className="text-base cursor-pointer" />
-          </div>
+          
         </header>
 
         {/* CONTEÚDO PRINCIPAL */}
@@ -81,14 +106,19 @@ export function Info() {
             <div className="relative w-full">
               <Gallery images={moto.imagens} />
 
-              <button className="
-                absolute top-3 right-3 z-10
-                flex items-center justify-center
-                w-10 h-10 rounded-full
-                bg-white/90 shadow-md
-                text-cinza-500
-              ">
-                <FaRegHeart className="text-lg" />
+              <button 
+              onClick={handelFavoritos}
+              className='absolute top-2 right-2 border z-10 flex items-center justify-center
+              w-10 h-10 rounded-full
+            bg-white/90 shadow-md
+            text-cinza-500' 
+          >
+         
+              {btnFavoritos ?(
+                <FaHeart />
+              ):(
+                <FaRegHeart />
+              )}
               </button>
             </div>
 
@@ -129,7 +159,7 @@ export function Info() {
                     flex flex-col items-center justify-center
                     min-h-[58px]
                     border border-cinza-300
-                    rounded-sm p-2
+                    rounded-md p-2
                     text-center
                   "
                 >
@@ -138,7 +168,12 @@ export function Info() {
                   </span>
 
                   <span className="text-sm font-semibold uppercase">
-                    {info.value || "Não informado"}
+                    {info.label === "Cor" ?(
+                      <div className="w-5 h-5 rounded-full" style={{backgroundColor:info.value}}/>
+                    ):(
+                      info.value
+                    )}
+                    
                   </span>
                 </div>
               ))}
@@ -147,28 +182,19 @@ export function Info() {
             {/* BOTÕES DE CONTATO */}
             <div className="flex flex-col gap-2">
 
-              <button className="
-                flex items-center justify-center gap-2
-                w-full h-11
-                bg-preto text-white
-                text-sm font-semibold
-                rounded-sm
-                hover:bg-cinza-700 transition
-              ">
-                <FaEnvelope />
-                ENVIAR PROPOSTA
-              </button>
-
               <a
                 href={`https://wa.me/55${telefone}`}
                 target="_blank"
+                onClick={() =>
+                registrarEvento({ tipo: 'CLICOU_WHATSAPP', veiculo_id: moto.public_id })
+                }
                 rel="noopener noreferrer"
                 className="
                   flex items-center justify-center gap-2
                   w-full h-11
                   bg-green-600 text-white
                   text-sm font-semibold
-                  rounded-sm
+                  rounded-md
                   hover:bg-green-700 transition
                 "
               >
@@ -176,13 +202,27 @@ export function Info() {
                 FALE COM A LOJA
               </a>
 
+              <button
+              onClick={()=> setModalFinancing(true)} 
+              className="
+                  flex items-center justify-center gap-2
+                  w-full h-11
+                  uppercase
+                  bg-azul-600 text-white
+                  text-sm font-semibold
+                  rounded-md
+                  hover:bg-azul-700 transition
+                ">
+               Simule seu financiamento
+              </button>
+
               <a
                 href={`tel:${telefone}`}
                 className="
                   flex items-center justify-center gap-2
                   w-full h-10
                   border border-cinza-300
-                  rounded-sm
+                  rounded-md
                   text-sm font-medium
                   hover:bg-cinza-100 transition
                 "
@@ -243,6 +283,7 @@ export function Info() {
           </h2>
 
           {/* Inserir informações adicionais */}
+          {moto.detalhes}
         </section>
 
         {/* OPCIONAIS */}
@@ -256,6 +297,7 @@ export function Info() {
           </h2>
 
           {/* Inserir opcionais */}
+          {moto.opcionais}
         </section>
 
         {/* RELACIONADOS */}
@@ -264,15 +306,20 @@ export function Info() {
           w-full py-8
           border-t border-cinza-300
         ">
-          <h2 className="text-xl font-bold">
-            Veículos relacionados
-          </h2>
 
-          {/* Inserir cards de veículos */}
+          <CarrosselAvaliacoes avaliacoes={avaliacoesFiltradas}/>
+          
         </section>
 
       </div>
       
     </main>
+
+    <ModalFinancing 
+    aberto={modalFinancing}
+    moto={moto}
+    fechar={()=> setModalFinancing(false)}
+    />
+    </>
   );
 }

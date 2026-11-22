@@ -61,7 +61,7 @@ export const palette = {
     800: '#1f2937',
     900: '#111827',
   },
-  preto: '#000000',
+  preto: '#202020',
   branco: '#ffffff',
 } as const;
 

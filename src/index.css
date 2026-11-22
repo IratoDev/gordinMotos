@@ -9,3 +9,28 @@
   }
 }
 
+.cloud {
+  
+  position: absolute;
+  bottom: 0;
+
+  width: 250.625em;
+  height: 23.75em;
+  animation: rotationLeft 80s linear infinite;
+  z-index: 1;
+}
+
+@keyframes rotationLeft {
+  0% {
+    transform: translateZ(0);
+  }
+  100% {
+    transform: translate3d(-50%,0,0);
+  }
+
+}
+
+.img_cloud {
+  margin-top: 4rem;
+  opacity: 1
+}

@@ -69,7 +69,7 @@ export default function Contact(){
                             href="https://wa.me/5543999529363"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex w-full items-center justify-center gap-2 rounded-lg bg-vermelho-500 px-4 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                            className="flex w-full items-center justify-center gap-2 rounded-lg bg-verde-500 px-4 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                           >
                             <FaWhatsapp size={18} />
                             Conversar pelo WhatsApp
@@ -179,7 +179,7 @@ export default function Contact(){
                         href="https://wa.me/5543999529363"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-vermelho-500 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-verde-500 px-6 py-3 text-sm font-semibold text-white transition hover:opacity-90"
                       >
                         <FaWhatsapp size={18} />
                         Fale com nossa equipe

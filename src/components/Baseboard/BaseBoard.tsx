@@ -8,8 +8,14 @@ import {
   FaInstagram,
   FaFacebook,
 } from "react-icons/fa";
+import { useApp } from "../../context/Context";
+import type { Marcas } from "../../context/dataTypes";
+import LogoIratoDev from "../../assets/image/logoIratodev.png"
 
 export default function Footer() {
+  
+  const {brands} = useApp()
+  
   const [cookies, setCookies] = useState(
     !localStorage.getItem("cookies-accepted")
   );
@@ -36,10 +42,9 @@ export default function Footer() {
   ];
 
   const menu = [
-    { label: "Estoque", href: "/multipla" },
-    { label: "Avaliação", href: "/avaliacao" },
-    { label: "Financiamento", href: "/financiamento" },
-    { label: "Quem somos", href: "/empresa" },
+    { label: "Estoque", href: "Veiculos" },
+    { label: "Avaliação", href: "/Avaliacoes" },
+    { label: "Quem somos", href: "/Sobre" },
     { label: "Contato", href: "/contato" },
   ];
 
@@ -146,12 +151,16 @@ export default function Footer() {
       <div className="border-t border-cinza-800 px-6 py-8">
         <div className="mx-auto max-w-7xl space-y-6">
           <section>
-            <h3 className="mb-3 text-lg font-bold">Marcas</h3>
-          </section>
+            <h3 className="mb-3 text-lg font-bold">Marcas:</h3>
 
-          <section>
-            <h3 className="mb-3 text-lg font-bold">Modelos</h3>
+            <div className="flex flex-wrap w-full gap-2">
+              {brands.map((marca:Marcas)=>(
+                <p className="text-sm uppercase">{marca.descricao}</p>
+              ))}
+            </div>
           </section>
+            
+
         </div>
       </div>
 
@@ -166,16 +175,15 @@ export default function Footer() {
       </div>
 
       {/* Desenvolvedor */}
-      <div className="px-6 py-5 text-center text-sm text-cinza-400">
-        Desenvolvido por{" "}
-        <a
-          href=""
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-bold hover:text-white"
-        >
-          IratoDev
-        </a>
+      <div className="felx flex=col w-full px-6 py-5 text-center text-sm text-cinza-400">
+        Desenvolvido por
+        <span className="flex flex-row-reverse justify-center py-5 items-center gap-2 ">
+
+          <div className="w-24 h-10 rounded-lg">
+            <img className="w-full h-full object-cover object-center rounded-lg" alt="logo irato dev" src={LogoIratoDev}/>
+          </div>
+
+        </span>
       </div>
 
       {/* Redes sociais laterais */}
@@ -202,8 +210,15 @@ export default function Footer() {
                   [item.id]: !prev[item.id],
                 }))
               }
-              className="flex h-12 w-12 items-center justify-center bg-vermelho-600 text-xl text-white"
-              aria-label={item.label}
+              className={`flex h-12 w-12 items-center justify-center ${
+              item.id === "facebook"
+                ? "bg-azul-600"
+                : item.id === "instagram"
+                  ? "bg-pink-600"
+                  : item.id === "whatsapp"
+                    ? "bg-green-600"
+                    : "bg-gray-600"
+            } text-xl text-white`}
             >
               {item.icon}
             </button>

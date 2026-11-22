@@ -2,7 +2,7 @@
 interface SelectTypes {
     name:string,
     value:string,
-    handleChange: ()=> void,
+    handleChange: (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>)=> void,
     list:[] | string[]
 }
 

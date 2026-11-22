@@ -3,7 +3,7 @@ interface InputTypes {
     type:string,
     name:string,
     value:string
-    handleChange: ()=> void,
+    handleChange: (e: React.ChangeEvent<HTMLInputElement >)=> void,
     placeholder: string,
 }
 

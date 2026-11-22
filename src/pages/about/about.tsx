@@ -5,6 +5,8 @@ import {
   FaUsers,
 } from "react-icons/fa";
 
+import imgEmpresa from '../../assets/image/Fachada.png'
+
 export default function About(){
         
     return(
@@ -35,9 +37,9 @@ export default function About(){
                       {/* IMAGEM */}
                       <div className="relative h-64 overflow-hidden rounded-xl bg-gray-100 shadow-sm md:h-[400px]">
                         <img
-                          src="/images/empresa.jpg"
+                          src={imgEmpresa}
                           alt="Nossa empresa"
-                          className="h-full w-full object-cover"
+                          className="h-full w-full object-cover object-center"
                         />
                       </div>
 

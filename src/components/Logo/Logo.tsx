@@ -1,39 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import  Mobile  from "../../assets/image/Logo Mobile.png";
 import  Desktop  from "../../assets/image/Logo Desktop.png";
+import { useEffect, useState } from "react";
 
 
-export function LogoDesktop() {
+export function Logo() {
 
+const [largura, setLargura] = useState(window.innerWidth);
 const navigate = useNavigate();
 
+ useEffect(() => {
+    const atualizarLargura = () => {
+      setLargura(window.innerWidth);
+    };
+
+    window.addEventListener("resize", atualizarLargura);
+
+    return () => {
+      window.removeEventListener("resize", atualizarLargura);
+    };
+  }, []);
+
 return (
-<div className="w-full max-w-60 h-auto max-h-20">
+<div className={`w-full ${largura > 760 ? "max-w-60" : " max-w-24"} h-auto max-h-20 `}>
     <button
     onClick={() => navigate('/')} 
     className="flex-1 w-full" 
     >
-    <img alt="Gordin Motos Multimarcas" src={Desktop} className="w-full h-full object-cover object-center"/>
+    {largura > 760 ?(
+        
+        <img alt="Gordin Motos Multimarcas" src={Desktop} className="w-full h-full object-cover object-center"/>
+        
+    ):(
+        
+        <img alt="Gordin Motos Multimarcas" src={Mobile} className="w-full h-full object-cover object-center border"/>
+
+    )}
     </button>
 </div>
-)
-
-}
-
-export function LogoMobile() {
-
-const navigate = useNavigate();
-
-return (
-<div className="flex w-full max-w-32 h-auto max-h-20 ">
-    <button
-    onClick={() => navigate('/')}
-    className="flex-1 w-full" 
-    >
-    <img alt="Gordin Motos Multimarcas" src={Mobile} className="w-full h-full object-cover object-center"/>
-    </button>
-
-</div>   
 )
 
 }
