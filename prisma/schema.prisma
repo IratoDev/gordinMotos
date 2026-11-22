@@ -1,0 +1,255 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/*
+controles para banco:
+
+apenas uma imagem como principal:
+CREATE UNIQUE INDEX unique_imagem_principal
+ON imagem_veiculos (veiculo_id)
+WHERE principal = true;
+
+limitar as estrelas do banco em 5:
+ALTER TABLE avaliacao
+ADD CONSTRAINT check_estrelas
+CHECK (estrelas BETWEEN 1 AND 5);
+
+*/
+
+model Veiculos {
+  id Int @id @default(autoincrement())
+  public_id String  @unique @default(uuid()) 
+  nome String
+  ano_fab Int
+  detalhes String?
+  opcionais String?
+  km Float
+  placa String @unique()
+  cambio Cambio
+  destaque Boolean
+  combustivel Combustivel
+  preco Decimal @db.Decimal(10,2)
+  ativo Boolean @default(true)
+  criado_em DateTime @default(now())
+  modificado_em DateTime @updatedAt
+
+  categoria_id Int
+  modelo_id Int
+
+
+  categorias Categorias_Veiculos @relation(fields: [categoria_id], references: [id])
+  modelo    Modelos              @relation(fields: [modelo_id], references: [id])
+  imagens Imagem_Veiculos[]
+  cores        Cores[]     
+  avaliacoes Avaliacao[]    
+  eventos     Eventos_veiculos[]    
+
+  @@index([modelo_id])
+  @@index([categoria_id])
+  @@map("veiculos")
+
+}
+
+model Imagem_Veiculos  {
+
+  id                Int @id @default(autoincrement())
+  public_id         String @unique @default(uuid()) 
+  veiculo_id        Int
+  url               String
+  principal         Boolean
+  criado_em         DateTime @default(now())
+
+  veiculo   Veiculos       @relation(fields: [veiculo_id], references: [id], onDelete: Cascade)
+
+  @@index([veiculo_id])
+  @@map("imagem_veiculos")
+
+}
+
+model Categorias_Veiculos {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid()) 
+  descricao String @unique()
+  criado_em     DateTime @default(now())
+  modificado_em DateTime @updatedAt
+
+  veiculo Veiculos[]
+
+  @@map("categorias_veiculos")
+
+}
+
+model Modelos {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid()) 
+  descricao String
+  ano_mod Int
+  marca_id Int
+  criado_em     DateTime @default(now())
+  modificado_em DateTime @updatedAt
+
+  marca Marcas @relation(fields: [marca_id], references: [id], onDelete: Cascade)
+  veiculos Veiculos[]
+
+  @@unique([marca_id, descricao, ano_mod])
+  @@map("modelos")
+
+}
+
+model Marcas {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid()) 
+  descricao String @unique()
+  criado_em     DateTime @default(now())
+  modificado_em DateTime @updatedAt
+
+  modelos Modelos[]
+
+  @@map("marcas")
+
+}
+
+model Cores {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid())
+  descricao String
+  hexadecimal String
+
+  criado_em     DateTime @default(now())
+  modificado_em DateTime @updatedAt
+  veiculos Veiculos[]
+
+  @@map("cores")
+
+}
+
+model Clientes {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid()) 
+  nome String
+  email String @unique()
+  senha String
+  data_nascimento DateTime @db.Date
+  celular String?
+  telefone String?
+
+  criado_em     DateTime @default(now())
+  modificado_em DateTime @updatedAt
+
+  avaliacoes Avaliacao[] 
+
+  @@map("clientes")
+
+}
+
+model Avaliacao {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid())
+  veiculo_id Int
+  aprovada Boolean @default(false)
+  texto String? 
+  cliente_id Int
+  estrelas Int
+  
+  criado_em     DateTime @default(now())
+  modificado_em DateTime @updatedAt
+  veiculo Veiculos @relation(fields: [veiculo_id],references: [id], onDelete: Cascade)
+  cliente Clientes @relation(fields: [cliente_id], references: [id], onDelete: Cascade)
+  
+  @@map("avaliacao")
+  @@index([veiculo_id, aprovada])
+  @@unique([cliente_id, veiculo_id])
+
+}
+
+model Usuario {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid())
+  nome String
+  email String @unique()
+  senha String
+  ativo Boolean @default(true)
+
+  criado_em     DateTime @default(now())
+  modificado_em DateTime @updatedAt
+
+  @@map("usuario")
+
+}
+
+model Eventos_veiculos {
+
+  id Int @id @default(autoincrement())
+  public_id String @unique @default(uuid())
+  veiculo_id Int?
+  tipo TiposEventos
+  termo_busca String?
+  
+  
+  criado_em     DateTime @default(now())
+  
+  veiculo     Veiculos? @relation(fields: [veiculo_id], references: [id], onDelete: Cascade)
+  @@index([tipo, criado_em])
+  @@index([veiculo_id, tipo])
+  @@map("eventos")
+
+}
+
+enum TiposEventos {
+  VISUALIZOU
+  BUSCOU
+  CLICOU_WHATSAPP
+}
+
+enum Combustivel {
+  GASOLINA
+  ETANOL
+  FLEX
+  DIESEL
+  ELETRICO
+  HIBRIDO
+}
+
+enum Cambio {
+  // Transmissões manuais
+  MANUAL
+  MANUAL_4_MARCHAS
+  MANUAL_5_MARCHAS
+  MANUAL_6_MARCHAS
+
+  // Transmissões semiautomáticas
+  SEMIAUTOMATICO
+  SEMIAUTOMATICO_ROTATIVO
+
+  // Transmissões automáticas
+  AUTOMATICO
+  CVT
+  DCT
+  AMT
+  E_CLUTCH
+
+  // Outras tecnologias
+  SEQUENCIAL
+  ELETRONICO
+  ELETRICO
+}

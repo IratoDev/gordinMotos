@@ -1,0 +1,77 @@
+@baseUrl = http://localhost:3000
+@authToken = {{authenticate.response.body.acessToken}}
+@refreshToken = {{authenticate.response.body.refreshToken}}
+
+#### USUARIO ####
+
+POST {{baseUrl}}/user/signup
+Content-Type: application/json
+
+{
+    "email": "teste2@gmail.com",
+    "senha": "abc123",
+    "nome": "teste2"
+}
+
+###
+
+PATCH {{baseUrl}}/user/update/
+Content-Type: application/json
+
+{
+    "public_id": "c4858414-5083-4056-839e-857ca47a50d9",
+    "email": "teste2@gmail.com",
+    "senha": "abc123",
+    "nome": "teste2 editado2"
+}
+
+### Usuario login
+
+# @name authenticate 
+POST {{baseUrl}}/auth/user
+Content-Type: application/json
+
+{
+    "email":"teste2@gmail.com",
+    "senha":"abc123"
+}
+
+#####
+# @name authenticate 
+POST {{baseUrl}}/auth/user/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refreshToken}}"
+}
+
+#####
+GET {{baseUrl}}/auth/valid/
+Authorization: Bearer {{authToken}}
+
+
+#### VEICULOS ####
+
+GET {{baseUrl}}/vehicles/all
+Authorization: Bearer {{authToken}}
+
+###
+# Buscar veículo
+GET {{baseUrl}}/veiculos/get/123
+
+###
+# Criar veículo
+POST {{baseUrl}}/veiculos/create
+Content-Type: application/json
+
+{
+    "nome": "Honda Civic",
+    "ano": 2022
+}
+
+
+#### Marcas ####
+
+### 
+# Busca Maracas
+GET {{baseUrl}}/brands/all
