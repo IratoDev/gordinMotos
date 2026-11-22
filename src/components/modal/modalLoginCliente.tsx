@@ -76,8 +76,7 @@ export default function LoginModal({ aberto, fechar, irParaCadastro }: Props) {
   
     };
 
-    console.log("botão de esconder senha",hidePassword)
-
+    
   return (
     <>
     <Modal  modalSize ="max-w-2xl" aberto={aberto} fechar={fechar} titulo="Entrar">

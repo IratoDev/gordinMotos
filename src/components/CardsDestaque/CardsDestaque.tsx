@@ -43,13 +43,13 @@ export function CardsDestaque({moto}: {moto: Veiculos}){
 
     return(
         <div className='
-        flex flex-col w-full h-full min-h-[calc(100vh-300px)] border border-cinza-300 rounded-lg shadow-md pb-1
-         md:max-w-[25vw] md:min-w-72 md:min-h-[calc(100vh-200px)] md:pb-4
+        flex flex-col w-full h-full min-h-[calc(100vh-300px)]
+        border border-cinza-300 rounded-lg shadow-md pb-1 
+        md:max-w-[25vw] md:min-w-72 md:min-h-[calc(100vh-200px)] md:pb-4
         '
         >
-            
 
-            <button className='flex flex-col flex-1 z-9' onClick={()=>navigate('/info', { state: { moto } })}>
+          <div className='flex flex-col flex-1 z-9' onClick={()=>navigate('/info', { state: { moto } })}>
                 <div className='relative w-full h-full max-h-[50%]'>
                     <button 
                     onClick={handelFavoritos}
@@ -102,7 +102,7 @@ export function CardsDestaque({moto}: {moto: Veiculos}){
                     </div>
                 </div>
             
-            </button>
+          </div>
                       
         </div>
     )

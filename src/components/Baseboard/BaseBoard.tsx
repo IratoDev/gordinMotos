@@ -112,8 +112,8 @@ export default function Footer() {
           <h3 className="mb-5 text-xl font-bold">Menu</h3>
 
           <ul className="space-y-3 text-sm text-cinza-300">
-            {menu.map((item) => (
-              <li key={item.href}>
+            {menu.map((item, index) => (
+              <li key={index}>
                 <a
                   href={item.href}
                   className="transition hover:text-vermelho-500"
@@ -130,8 +130,8 @@ export default function Footer() {
           <h3 className="mb-5 text-xl font-bold">Redes sociais</h3>
 
           <ul className="space-y-4">
-            {social.map((item) => (
-              <li key={item.label}>
+            {social.map((item, index) => (
+              <li key={index}>
                 <a
                   href={item.href}
                   target="_blank"

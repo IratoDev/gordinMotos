@@ -169,7 +169,7 @@ export function Info() {
 
                   <span className="text-sm font-semibold uppercase">
                     {info.label === "Cor" ?(
-                      <div className="w-5 h-5 rounded-full" style={{backgroundColor:info.value}}/>
+                      <div className="w-5 h-5 rounded-full border" style={{backgroundColor:info.value}}/>
                     ):(
                       info.value
                     )}

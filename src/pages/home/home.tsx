@@ -247,7 +247,9 @@ export default function Home(){
 
                 <SearchMotos/>
 
-                <button className='p-4 bg-preto text-branco font-bold rounded-lg mx-auto mt-5'>
+                <button
+                onClick={()=>navigate('/Veiculos')} 
+                className='p-4 bg-preto text-branco font-bold rounded-lg mx-auto mt-5'>
                   Ver todos os veiculos
                 </button>
             </section>
@@ -305,9 +307,11 @@ export default function Home(){
               {motosDestaque.length > 0 ? (
               
                 <div className="
-                  grid grid-cols-1 sm:grid-cols-2
-                  lg:grid-cols-3 xl:grid-cols-4
-                  gap-6
+                  grid grid-cols-1 gap-6 
+                  sm:grid-cols-2 sm:gap-10
+                  lg:grid-cols-3 lg:gap-14
+                  xl:grid-cols-4 xl:gap-16
+                  
                 ">
                   {motosDestaque.map((moto: Veiculos) => (
                     <CardsDestaque

@@ -52,8 +52,6 @@ export function ContextProvider({ children }: Props) {
   const [categoris, setCategoris] = useState<Categorias[]>([])
   
   const [favoritosList, setFavoritoList] = useState<string[]>([]);
-
-
   
   const listDatas = [
 
