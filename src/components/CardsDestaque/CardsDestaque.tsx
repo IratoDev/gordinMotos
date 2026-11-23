@@ -78,7 +78,10 @@ export function CardsDestaque({moto}: {moto: Veiculos}){
                     <p className="text-cinza-600 font-semibold" style={{fontSize: responsiveSizes.text.small}}>{moto.modelo?.descricao}</p>
                   </div>
                   
-                  <h3 className='text-verde-600 font-bold' style={{fontSize: responsiveSizes.text.subtitle}}>R$ {moto.preco}</h3>
+                  <h3 className='text-verde-600 font-bold' style={{fontSize: responsiveSizes.text.subtitle}}>R$ {moto.preco.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })}</h3>
                   
                   <p className="text-cinza-600" style={{fontSize: responsiveSizes.text.small}}>arapongas</p>
                 
