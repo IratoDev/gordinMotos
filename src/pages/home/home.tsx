@@ -311,7 +311,7 @@ export default function Home(){
             <section
               id="destaques"
               className="
-                bg-white px-5 py-16
+                bg-white px-2 py-8
                 md:px-12 lg:px-20 xl:px-32
               "
             >
@@ -363,8 +363,8 @@ export default function Home(){
                   grid
                   grid-cols-1
                   sm:grid-cols-2
-                  lg:grid-cols-3
-                  xl:grid-cols-4
+                  xl:grid-cols-3
+                  2xl:grid-cols-4
                   gap-x-8 gap-y-10
                   w-full
                   
