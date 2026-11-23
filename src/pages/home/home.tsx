@@ -16,6 +16,7 @@ export default function Home(){
 
   const navigate = useNavigate();
   const [largura, setLargura] = useState(window.innerWidth);
+  const [mostrarTodasMarcas, setMostrarTodasMarcas] = useState(false);
 
   useEffect(() => {
     const atualizarLargura = () => {
@@ -199,13 +200,11 @@ export default function Home(){
               </div>
 
               <div className="
-                grid grid-cols-4 sm:grid-cols-3 
-                md:grid-cols-4 lg:grid-cols-5
-                xl:grid-cols-6 gap-3
+                hidden md:grid
+                md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6
+                gap-3
               ">
-              
                 {brands.map((marca) => (
-                  
                   <button
                     key={marca.public_id}
                     onClick={() =>
@@ -217,22 +216,76 @@ export default function Home(){
                       rounded-lg border border-white/10
                       bg-white/5 text-white
                       hover:border-vermelho-600
-                      hover:bg-white/10
-                      transition duration-300
+                      hover:bg-white/10 transition duration-300
                     "
                   >
-                    <FaMotorcycle
-                      size={25}
-                      className="text-vermelho-500"
-                    />
-
+                    <FaMotorcycle size={25} className="text-vermelho-500" />
+                  
                     <p className="text-sm font-semibold text-center line-clamp-1">
                       {marca.descricao}
                     </p>
                   </button>
                 ))}
+              </div>
+
+              <div className="
+                grid grid-cols-2 gap-3
+                md:hidden
+              ">
+              
+                {brands
+                  .slice(0, mostrarTodasMarcas ? brands.length : 5)
+                  .map((marca) => (
+                  
+                    <button
+                      key={marca.public_id}
+                      onClick={() =>
+                        navigate(`/veiculos?marca=${marca.public_id}`)
+                      }
+                      className="
+                        flex flex-col items-center justify-center
+                        gap-3 min-h-24 p-2
+                        rounded-lg border border-white/10
+                        bg-white/5 text-white
+                        hover:border-vermelho-600
+                        hover:bg-white/10
+                        transition duration-300
+                      "
+                    >
+                      <FaMotorcycle
+                        size={25}
+                        className="text-vermelho-500"
+                      />
+
+                      <p className="text-sm font-semibold text-center line-clamp-1">
+                        {marca.descricao}
+                      </p>
+                    </button>
+
+                  ))}
 
               </div>
+                
+              {/* botão ver mais - somente celular */}
+              {brands.length > 5 && (
+                <button
+                  onClick={() => setMostrarTodasMarcas(!mostrarTodasMarcas)}
+                  className="
+                    mt-5 w-full py-3
+                    text-vermelho-500 font-semibold text-sm
+                    border border-vermelho-500/40
+                    rounded-lg
+                    hover:bg-vermelho-500/10
+                    transition
+                    md:hidden
+                  "
+                >
+                  {mostrarTodasMarcas
+                    ? 'Ver menos categorias'
+                    : 'Ver mais categorias'}
+                </button>
+              )}
+
             </section>
 
             {/* seção busca moto*/}
@@ -307,10 +360,13 @@ export default function Home(){
               {motosDestaque.length > 0 ? (
               
                 <div className="
-                  grid grid-cols-1 gap-6 
-                  sm:grid-cols-2 sm:gap-10
-                  lg:grid-cols-3 lg:gap-14
-                  xl:grid-cols-4 xl:gap-16
+                  grid
+                  grid-cols-1
+                  sm:grid-cols-2
+                  lg:grid-cols-3
+                  xl:grid-cols-4
+                  gap-x-8 gap-y-10
+                  w-full
                   
                 ">
                   {motosDestaque.map((moto: Veiculos) => (
