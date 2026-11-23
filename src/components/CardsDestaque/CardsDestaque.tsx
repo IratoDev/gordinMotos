@@ -50,13 +50,13 @@ export function CardsDestaque({moto}: {moto: Veiculos}){
         >
 
           <div className='flex flex-col flex-1 z-9' onClick={()=>navigate('/info', { state: { moto } })}>
-                <div className='relative w-full h-full max-h-[50%]'>
+                <div className='relative w-full h-64 md:h-60 shrink-0 overflow-hidden'>
                     <button 
                     onClick={handelFavoritos}
                     className='absolute top-2 right-2 border z-10 flex items-center justify-center
                     w-10 h-10 rounded-full
-                  bg-white/90 shadow-md
-                  text-cinza-500' 
+                    bg-white/90 shadow-md
+                    text-cinza-500' 
                     >
                 
                     {btnFavoritos ?(
