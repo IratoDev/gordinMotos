@@ -43,14 +43,14 @@ export function CardsDestaque({moto}: {moto: Veiculos}){
 
     return(
         <div className='
-        flex flex-col w-full h-full min-h-[calc(100vh-300px)]
+        flex flex-col w-full h-full min-h-[calc(100vh-175px)]
         border border-cinza-300 rounded-lg shadow-md pb-1 
-        md:max-w-[25vw] md:min-w-72 md:min-h-[calc(100vh-200px)] md:pb-4
+        md:max-w-[25vw] md:min-w-72 md:min-h-[calc(100vh-80px)] md:pb-4
         '
         >
 
           <div className='flex flex-col flex-1 z-9' onClick={()=>navigate('/info', { state: { moto } })}>
-                <div className='relative w-full h-64 md:h-60 shrink-0 overflow-hidden'>
+                <div className='relative w-full h-80 md:h-72 shrink-0 overflow-hidden'>
                     <button 
                     onClick={handelFavoritos}
                     className='absolute top-2 right-2 border z-10 flex items-center justify-center
@@ -66,7 +66,7 @@ export function CardsDestaque({moto}: {moto: Veiculos}){
                     )}
                     </button>
 
-                    <img className='w-full h-full object-cover object-center rounded-t-lg' src={moto?.imagens?.find((img)=> img.principal === true )?.url}/>
+                    <img className='w-full h-full object-cover object-bottom rounded-t-lg' src={moto?.imagens?.find((img)=> img.principal === true )?.url}/>
                 </div>
 
 
