@@ -314,6 +314,7 @@ export class VeiculosService {
             modelo: {
               public_id: v.modelo.public_id,
               descricao: v.modelo.descricao,
+              ano_mod: v.modelo.ano_mod,
             },
             categoria: v.categorias,
             cor: v.cores,
