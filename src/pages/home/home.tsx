@@ -37,8 +37,8 @@ export default function Home(){
   const diferenciais = [
   {
     icone: <FaTools size={22} />,
-    titulo: 'Seminovas revisadas',
-    texto: 'Cada moto passa por revisão antes de ir para a loja.',
+    titulo: 'Seminovas e 0km com garantia',
+    texto: 'Qualidade, procedência e confiança em cada moto.',
   },
   {
     icone: <FaShieldAlt size={22} />,
