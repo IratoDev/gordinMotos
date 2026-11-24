@@ -72,7 +72,7 @@ export default function ModalDeleteModelo({ aberto, onFechar }: Props) {
               modelos.map((model:Modelos) => (
                 <tr key={model.public_id} className="hover:bg-stone-50 transition">
                   <td className="px-4 py-3 font-medium text-stone-900">
-                    {model.descricao}
+                    {model.descricao} / {model.ano_mod}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
