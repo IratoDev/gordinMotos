@@ -41,11 +41,14 @@ export function CardsDestaque({moto}: {moto: Veiculos}){
       setBtnFavoritos(getFavoritos().includes(moto.public_id))
     },[toggleFavorito])
 
+    console.log(moto)
+
     return(
         <div className='
         flex flex-col w-full h-full min-h-[calc(100vh-175px)]
         border border-cinza-300 rounded-lg shadow-md pb-1 
         md:max-w-[25vw] md:min-w-72 md:min-h-[calc(100vh-80px)] md:pb-4
+        2xl:min-h-[calc(100vh-330px)]
         '
         >
 
