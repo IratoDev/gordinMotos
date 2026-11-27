@@ -26,7 +26,7 @@ export class VeiculosController {
   @UseGuards(AuthTokenGuard)
   @UseInterceptors(FilesInterceptor('imagens', 5, {
     storage: memoryStorage(),
-    limits: { fileSize: 8 * 1024 * 1024 }, // 8 MB por foto
+    limits: { fileSize: 18 * 1024 * 1024 }, // 8 MB por foto
     fileFilter: (req, file, cb) => {
       if (!/^image\/(jpeg|png|webp)$/.test(file.mimetype))
         return cb(new BadRequestException('Só imagens JPG, PNG ou WebP'), false);
